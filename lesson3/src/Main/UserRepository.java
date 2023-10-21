@@ -7,7 +7,12 @@ public class UserRepository {
 
     // Тут можно хранить аутентифицированных пользователей
     private static List<User> data = new ArrayList<>();
-
+    public static void logoutAllWithoutAdmin(){
+        for (int i = 0; i < data.size(); i++) {
+            if (!data.get(i).isAdmin)
+                data.remove(i);
+        }
+    }
     public static void addUser(User user) {
        if (user.isAuthenticate){
            data.add(user);
