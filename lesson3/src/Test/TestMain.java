@@ -11,6 +11,7 @@ import static Main.SomeService.fizzBuzz;
 import static Main.UserRepository.addUser;
 import static Main.UserRepository.logoutAllWithoutAdmin;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestMain {
     @ParameterizedTest
@@ -61,7 +62,7 @@ public class TestMain {
     }
     @Test
     void testAddAuthUser(){
-        User user = new User("kostya", "1234");
+        User user = new User("kostya", "1234", false);
         UserRepository userRepository = new UserRepository();
         user.auth("kostya", "1234");
         addUser(user);
@@ -69,7 +70,7 @@ public class TestMain {
     }
     @Test
     void testNotAddAuthUser(){
-        User user = new User("kostya", "1234");
+        User user = new User("kostya", "1234", false);
         UserRepository userRepository = new UserRepository();
         user.auth("kosta", "1234");
         addUser(user);
@@ -88,9 +89,16 @@ public class TestMain {
         addUser(user2);
         addUser(user3);
         logoutAllWithoutAdmin();
+        boolean flag = true;
         for (int i = 0; i < userRepository.getData().size(); i++) {
-            assertThat(userRepository.getData().get(i).getIsAdmin()).isEqualTo(true);
+            if (!userRepository.getData().get(i).getIsAdmin()){
+                flag = false;
+                break;
+            }
+        assertTrue(flag);
         }
 
     }
+
+
 }
