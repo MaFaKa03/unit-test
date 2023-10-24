@@ -1,7 +1,0 @@
-package book;
-
-
-
-class BookServiceTest {
-
-}
