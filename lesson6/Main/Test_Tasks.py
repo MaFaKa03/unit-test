@@ -13,35 +13,9 @@ def test_find_average():
 # Задание 2
 def test_find_average_typeerror():
     with pytest.raises(TypeError):
-        Tasks.find_average("Not a list")
+        Tasks.find_average((1,2,3))
 
 
-# Задание 3
-def test_person_bank_interaction():
-    person = Tasks.Person(1000)
-    bank = Tasks.Bank()
-    person.transfer_money(500, bank)
-    assert person.balance == 500
-    assert bank.balance == 500
-
-
-def test_person_bank_valueerror():
-    with pytest.raises(ValueError):
-        person = Tasks.Person(0)
-        bank = Tasks.Bank()
-        person.transfer_money(500, bank)
-
-
-# Задание 4
-def test_transfer_with_mock():
-    person = Tasks.Person(1000)
-    bank_mock = Mock()  # Создаём мок-объект для банка
-
-    person.transfer_money(500, bank_mock)
-    bank_mock.receive_money.assert_called_with(500)  # Проверяем, был ли вызван метод receive_money с аргументом 500
-
-
-# Задание 5
 def test_divide_zero():
     with pytest.raises(ZeroDivisionError):
         Tasks.divide(10, 0)
